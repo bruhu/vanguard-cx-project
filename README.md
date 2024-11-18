@@ -7,18 +7,6 @@ This repository contains the work for the **Vanguard A/B Test** project, conduct
 The primary objective of the project is to perform exploratory data analysis (EDA), hypothesis testing, and experiment evaluation to determine if the redesigned UI leads to improved client outcomes.
 
 
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Data Overview](#data-overview)
-- [Methodology](#methodology)
-- [Deliverables](#deliverables)
-- [Team Members](#team-members)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
-
 ## Data Overview
 
 The project uses the following datasets:
