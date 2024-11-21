@@ -33,7 +33,7 @@ def inspect_dataframe(df):
 
 
 
-# Data Cleaning (basic functions)
+# Data Cleaning & Data Wrangling
 
 
 # clean column names
@@ -89,3 +89,15 @@ def floats_to_ints(df, column_name):
     df[column_name] = df[column_name].astype('Int64')  # Use 'Int64' for nullable integers in pandas
     return df
 
+
+# handle unique values in 'gender' column
+def handle_unique_gender_values(df):
+    print(df['gender'].unique())
+    replacement_dict_gender = {
+        'U': 'Unspecified',    
+        'M': 'Male',
+        'F': 'Female',
+        'X': 'Unspecified',
+        np.nan: 'Unspecified'
+    }
+    df['gender'] = df['gender'].replace(replacement_dict_gender)
