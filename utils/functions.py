@@ -107,3 +107,41 @@ def handle_unique_gender_values(df):
     df['gender'] = df['gender'].fillna('Unspecified')
     
     return df
+
+
+# KPI Calculations
+
+def find_completion_rate(df):    
+    clients_finished = df[df['process_step'] == 4] # filter rows where process_step is 'Finish'
+    total_unique_clients = df['client_id'].nunique()
+    unique_clients_finished = clients_finished['client_id'].nunique() # find unique client ids that finished
+    print(f'Clients who finished the process: {unique_clients_finished} out ouf {total_unique_clients}.')
+
+
+def calculate_time_per_step(df):
+    df = df.sort_values(by=['client_id', 'date_time']) # sort by client id and date/time
+
+    df['time_diff'] = df.groupby('client_id')['date_time'].diff() # calculate time diff between steps
+
+    # # Drop first row per client (contains no information)
+    # df = df.dropna(subset=['time_diff'])
+
+    avg_time_per_step = df.groupby('process_step')['time_diff'].mean() # calculate average time per step
+
+    avg_time_in_seconds = avg_time_per_step.dt.total_seconds() # convert to total seconds
+
+    avg_time_in_seconds_rounded = np.ceil(avg_time_in_seconds).astype(int) # round up to remove decimals
+
+    avg_time_per_step_rounded = pd.to_timedelta(avg_time_in_seconds_rounded, unit='s') # convert back to timedelta
+
+    print('Average time spent on each step:\n')
+    print(avg_time_per_step_rounded)
+
+def find_error_rate(df):
+    clients_with_errors = df[df['stepped_back']]['client_id'].nunique() # unique clients who experienced at least one error
+    errors_per_client = df[df['stepped_back']].groupby('client_id').size() # errors for each client
+    total_errors = df['stepped_back'].sum() # errors across all clients
+    print(f'Number of clients with at least one error: {clients_with_errors}')
+    print('Errors per client:')
+    print(errors_per_client)
+    print(f'Total number of errors across all clients: {total_errors}')
