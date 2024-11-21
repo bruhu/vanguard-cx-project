@@ -81,12 +81,16 @@ def check_unique_and_empty(df):
 def floats_to_ints(df, column_name):
     """
     Convert float values in the specified column to integers, leaving NaNs intact.
-   
+    This handles both NaN (from numpy) and pd.NA (from pandas' nullable integers).
+    
     """
-    # apply floor() when needed, leave NaN values as they are
-    df[column_name] = df[column_name].apply(lambda x: np.floor(x) if pd.notna(x) else x)
-    df[column_name] = df[column_name].apply(lambda x: int(x) if pd.notna(x) else x)
-    df[column_name] = df[column_name].astype('Int64')  # Use 'Int64' for nullable integers in pandas
+    # handle NaN and pd.NA correctly, keeping them intact
+    df[column_name] = df[column_name].apply(
+        lambda x: int(np.floor(x)) if pd.notna(x) and x is not pd.NA else x
+    )
+    
+    df[column_name] = df[column_name].astype('Int64')  # 'Int64' for nullable integers in pandas
+    
     return df
 
 
