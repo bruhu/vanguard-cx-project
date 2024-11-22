@@ -55,6 +55,24 @@ def clean_column_names(df):
     df.columns = [clean_name(col) for col in df.columns]    
     return df
 
+# rename columns
+def rename_cols(df):
+    """
+    Renames columns in a DataFrame based on the provided dictionary, 
+    only renaming those columns that exist in the DataFrame.
+
+    """
+    rename_dict_columns = {
+    'process_step': 'step',
+    'client_tenure_years': 'tenure_years',
+    'client_tenure_months': 'tenure_months',
+    'num_accounts': 'accounts',
+    'client_age': 'age'
+    }
+    existing_columns = {k: v for k, v in rename_dict_columns.items() if k in df.columns}
+    df.rename(columns=existing_columns, inplace=True)
+    return df
+
 # check unique and empty values
 def check_unique_and_empty(df):
     result = []
