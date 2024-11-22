@@ -140,3 +140,14 @@ def find_error_rate(df):
     print(f'Errors per client: {errors_per_client}')
     print(f'Total number of errors across all clients: {total_errors}')
     return clients_with_errors, errors_per_client, total_errors
+
+def steps_to_numerical(df, column_name):
+    replacement_dict_steps = {
+        'start' : 0,
+        'step_1' : 1,
+        'step_2' : 2,
+        'step_3' : 3,
+        'confirm' : 4
+        }
+    df[column_name] = df[column_name].map(replacement_dict_steps)
+    return df
