@@ -101,7 +101,7 @@ def handle_unique_gender_values(df):
         'U': 'Unspecified',    
         'M': 'Male',
         'F': 'Female',
-        'X': 'Unspecified',
+        'X': 'Other',
     }
     df['gender'] = df['gender'].replace(replacement_dict_gender)
     df['gender'] = df['gender'].fillna('Unspecified')
