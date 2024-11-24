@@ -1,4 +1,11 @@
+# utils/kpi_functions.py
+
+import pandas as pd
+import numpy as np
+import re
+
 # KPI Calculations
+
 
 def find_completion_rate(df):
     clients_finished = df[df['step'] == 4]  # filter rows where  is 'Finish'
@@ -8,18 +15,34 @@ def find_completion_rate(df):
     print(f'Clients who finished the process: {unique_clients_finished} out ouf {total_unique_clients}.')
     return unique_clients_finished, total_unique_clients, completion_rate
 
+def calculate_average_time_per_step(df):
+    df['date_time'] = pd.to_datetime(df['date_time'])
+    
+    df = df.sort_values(by=['client_id', 'visit_id', 'step'])
+    
+    df['next_step_time'] = df.groupby(['client_id', 'visit_id'])['date_time'].shift(-1)  # Shift for next step's time
+    df['time_spent'] = df['next_step_time'] - df['date_time']  # Calculate the time spent between steps
+    
+    step_4_rows = df[df['step'] == 4].copy()    
+    step_4_rows['next_step_time'] = step_4_rows.groupby('visit_id')['date_time'].transform('max')  # Max date_time for finish
+    df.loc[df['step'] == 4, 'next_step_time'] = step_4_rows['next_step_time']
+    df['time_spent'] = df['next_step_time'] - df['date_time']  # Recalculate for step 4 after updating the column
+    
+    df = df.dropna(subset=['time_spent'])
+    
+    avg_time_per_step = df.groupby(['step'])['time_spent'].mean().reset_index(name='avg_time_spent')
+    
+    avg_time_per_step['avg_time_seconds'] = np.ceil(avg_time_per_step['avg_time_spent'].dt.total_seconds()).astype(int)
+    
+    avg_time_per_step['avg_time_minutes'] = avg_time_per_step['avg_time_seconds'] / 60
+    
+    avg_time_per_step['avg_time_minutes'] = avg_time_per_step['avg_time_minutes'].round(2)
+    
+    median_time = avg_time_per_step['avg_time_minutes'].median()
 
-def calculate_time_per_step(df):
-    df = df.sort_values(by=['client_id', 'date_time'])  # sort by client_id and date_time
-    df['time_diff'] = df.groupby('client_id')['date_time'].diff()  # calculate time diff between steps
-    # Drop first row per client (contains no information)
-    df = df.dropna(subset=['time_diff'])
-    avg_time_per_step = df.groupby('step')['time_diff'].mean()  # calculate average time per step
-    avg_time_in_seconds = avg_time_per_step.dt.total_seconds()  # convert to total seconds
-    avg_time_in_seconds_rounded = np.ceil(avg_time_in_seconds).astype(int)  # round up to remove decimals
-    avg_time_per_step_rounded = pd.to_timedelta(avg_time_in_seconds_rounded, unit='s')  # convert back to timedelta
-    print(f'Average time spent on each step:\n {avg_time_per_step_rounded}')
-    return avg_time_per_step_rounded
+    print(f"Median time spent across all steps: {median_time} minutes")
+    
+    return avg_time_per_step
     
 
 def find_error_rate(df):
@@ -29,6 +52,42 @@ def find_error_rate(df):
     print(f'Errors per client: {errors_per_client}')
     print(f'Total number of errors across all clients: {total_errors}')
     return clients_with_errors, errors_per_client, total_errors
+
+def calculate_error_count(df):
+    df = df.sort_values(by=['client_id', 'visit_id', 'date_time'])
+
+    # backward steps (errors) for each client within each visit
+    df['stepped_back'] = df.groupby(['client_id', 'visit_id'])['step'].diff() < 0
+
+    # Calculate total errors (total backward steps)
+    total_errors = df['stepped_back'].sum()
+
+    # total steps (rows in the dataframe)
+    total_steps = len(df)
+
+    # average error count per step (percentage of steps that are errors)
+    avg_error_count_per_step = df['stepped_back'].mean()  # This gives the average proportion of steps that are errors
+    print(f'Average error count per step: {avg_error_count_per_step:.2f}')
+
+    # total error count per client (sum of backward steps per client)
+    total_errors_per_client = df.groupby('client_id')['stepped_back'].sum()
+    print(f'Total error count per client:\n{total_errors_per_client.head()}')
+
+    # unique clients with errors
+    clients_with_errors = (total_errors_per_client > 0).sum()
+    error_rate_clients = (clients_with_errors / df['client_id'].nunique()) * 100
+    print(f'Error rate (clients with errors): {error_rate_clients:.2f}%')
+
+    # percentage of total steps that have errors
+    error_rate_steps = (total_errors / total_steps) * 100  # % of steps that are errors
+    print(f'Error rate (steps with errors): {error_rate_steps:.2f}%')
+
+    # error rate per step (the proportion of steps that are errors)
+    df['error_rate_per_step'] = df['stepped_back'].astype(int) / 1  # each row represents a step, so this is either 0 or 1
+    error_rate_per_step = df['error_rate_per_step'].mean() * 100  # mean error rate per step
+    print(f'Error rate per step: {error_rate_per_step:.2f}%')
+
+    return df, total_errors_per_client
 
 def steps_to_numerical(df, column_name):
     step_numericals = {
