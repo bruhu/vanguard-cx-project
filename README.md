@@ -2,53 +2,43 @@
 
 ## Project Overview
 
-This repository contains the work for the **Vanguard A/B Test** project, conducted by [Your Name 1] and [Your Name 2]. The project focuses on analyzing the results of an A/B test conducted by Vanguard, a leading investment management company. The goal is to assess the impact of a new user interface (UI) design on client experience and process completion rates.
+In this project, we analyzed the results of an A/B test conducted by Vanguard, a leading investment management company. The primary goal was to assess whether a new user interface (UI) design improved client experience and process completion rates. Our work focused on performing exploratory data analysis (EDA), hypothesis testing, and experiment evaluation to draw conclusions about the impact of the redesigned UI.
 
-The primary objective of the project is to perform exploratory data analysis (EDA), hypothesis testing, and experiment evaluation to determine if the redesigned UI leads to improved client outcomes.
+## What We Did
 
+### 1. **Data Exploration and Cleaning**
+   - We started by exploring the provided datasets using **Pandas**, **Matplotlib**, and **Seaborn** to identify patterns, trends, and any issues in the data.
+   - We cleaned the datasets by addressing missing values, removing duplicates, and handling inconsistencies that could affect the quality of our analysis.
 
-## Data Overview
-
-The project uses the following datasets:
-1. **Client Profiles (df_final_demo)** - Contains demographic information such as age, gender, and account details of clients.
-2. **Digital Footprints (df_final_web_data)** - Tracks detailed client interactions online, split into two parts (pt_1 and pt_2).
-3. **Experiment Roster (df_final_experiment_clients)** - Contains the list of clients who participated in the A/B test, with information about which group (Control vs. Test) they were assigned to.
-
-The datasets need to be merged and cleaned before performing any analysis.
-
-
-## Methodology
-
-### 1. **Exploratory Data Analysis (EDA) and Data Cleaning**
-   - Initial data exploration using Python libraries such as **Pandas**, **Matplotlib**, and **Seaborn**.
-   - Data cleaning to address missing values, outliers, and inconsistencies.
-
-### 2. **Performance Metrics**
-   - Definition and calculation of key performance indicators (KPIs) like completion rates, time spent on each step, and error rates.
+### 2. **Defining and Calculating Performance Metrics**
+   - We defined key performance indicators (KPIs) for the analysis, including:
+     - **Completion rates**: To measure the proportion of clients who completed the process.
+     - **Time spent on each step**: To evaluate how long clients took to complete each step in the process.
+     - **Error rates**: To assess how often clients encountered issues.
+   - We calculated these metrics to gain insights into how the different groups performed throughout the test.
 
 ### 3. **Hypothesis Testing**
-   - A/B test analysis to compare the completion rates between the Control and Test groups.
-   - Additional hypothesis tests to assess factors like age, gender, and client tenure.
-   - Statistical tests (e.g., Two-proportion Z-test) to evaluate significance.
+   - We compared the **Test** and **Control** groups using an **A/B test** to analyze the differences in completion rates.
+   - We also conducted additional tests to explore the influence of factors such as **age**, **gender**, and **client tenure** on completion rates.
+   - We applied statistical methods, such as the **Two-proportion Z-test**, to evaluate whether the differences in outcomes between the two groups were statistically significant.
 
 ### 4. **Experiment Evaluation**
-   - Assessment of the experiment design, including randomization, potential biases, and the experiment duration.
-   - Suggestions for additional data that could enhance the analysis.
+   - We evaluated the design of the experiment, focusing on randomization, potential biases, and the duration of the test.
+   - Based on our findings, we recommended further steps for improving future experiment designs and data collection practices.
 
 ### 5. **Visualization**
-   - **Tableau**: Creation of interactive visualizations to provide insights into the experiment data.
-   - **Streamlit**: (Optional) Build interactive web apps for real-time analysis and visualization.
-
+   - We created **interactive visualizations** using **Tableau** to present the key findings from the experiment and facilitate easier interpretation of the results.
+   - Additionally, we developed **Streamlit** web applications to provide real-time, interactive access to the data and analysis.
 
 ## Deliverables
 
-- A detailed analysis report, including findings, conclusions, and recommendations for Vanguard.
-- A Tableau dashboard visualizing key insights.
-- Jupyter notebooks with code for EDA, hypothesis testing, and experiment evaluation.
-- A well-documented README with explanations of methodology, results, and conclusions.
-- A project presentation summarizing the findings and insights.
-
+- A comprehensive **analysis report** that details the findings, conclusions, and recommendations based on our investigation.
+- A **Tableau dashboard** visualizing key insights from the A/B test results.
+- **Jupyter notebooks** containing the code used for data exploration, hypothesis testing, and evaluation.
+- A thorough **README** explaining the methodology, results, and conclusions of the project.
+- A **project presentation** summarizing the main findings and insights.
 
 ## The Team
-- Constanza
-- Bru
+
+- **Constanza**
+- **Bru**
