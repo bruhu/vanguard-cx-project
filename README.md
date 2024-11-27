@@ -1,44 +1,48 @@
 # Vanguard CX Analytics Team Project
 
 ## Project Overview
-
-In this project, we analyzed the results of an A/B test conducted by Vanguard, a leading investment management company. The primary goal was to assess whether a new user interface (UI) design improved client experience and process completion rates. Our work focused on performing exploratory data analysis (EDA), hypothesis testing, and experiment evaluation to draw conclusions about the impact of the redesigned UI.
+This project focuses on analyzing the results of an A/B test conducted by Vanguard, a leading investment management company, to evaluate the impact of a new user interface (UI) design on client behavior and process completion rates. Our goal was to assess whether the new design improved client experience and identify areas for optimization. Key methods included exploratory data analysis (EDA), hypothesis testing, and experiment evaluation.
 
 ## What We Did
+1. **Data Exploration and Cleaning**:
+   - Explored datasets to identify patterns, trends, and data quality issues.
+   - Cleaned data by addressing missing values, removing duplicates, and fixing inconsistencies.
 
-### 1. **Data Exploration and Cleaning**
-   - We started by exploring the provided datasets using **Pandas**, **Matplotlib**, and **Seaborn** to identify patterns, trends, and any issues in the data.
-   - We cleaned the datasets by addressing missing values, removing duplicates, and handling inconsistencies that could affect the quality of our analysis.
+2. **Performance Metrics and KPIs**:
+   - **Completion Rates**: Calculated the proportion of clients who completed the process (67.7% overall). Analyzed differences between Test (69.3%) and Control (65.6%) groups.
+   - **Time Spent on Each Step**: Measured the average time clients spent on each step, identifying Steps 2 and 3 as potential bottlenecks.
+   - **Error Rates**: Found that 29.95% of clients experienced at least one backward step, indicating areas of confusion in the process.
 
-### 2. **Defining and Calculating Performance Metrics**
-   - We defined key performance indicators (KPIs) for the analysis, including:
-     - **Completion rates**: To measure the proportion of clients who completed the process.
-     - **Time spent on each step**: To evaluate how long clients took to complete each step in the process.
-     - **Error rates**: To assess how often clients encountered issues.
-   - We calculated these metrics to gain insights into how the different groups performed throughout the test.
+3. **Behavior Analysis**:
+   - Found that primary clients were older (average age: 46.18 years) and long-standing (average tenure: 12.05 years).
+   - Analyzed drop-off points, revealing a 32.3% abandonment rate and providing insights into process friction points.
 
-### 3. **Hypothesis Testing**
-   - We compared the **Test** and **Control** groups using an **A/B test** to analyze the differences in completion rates.
-   - We also conducted additional tests to explore the influence of factors such as **age**, **gender**, and **client tenure** on completion rates.
-   - We applied statistical methods, such as the **Two-proportion Z-test**, to evaluate whether the differences in outcomes between the two groups were statistically significant.
+4. **Hypothesis Testing**:
+   - Conducted statistical tests (e.g., Two-proportion Z-test) to confirm that the higher completion rate in the Test group was statistically significant.
+   - Performed ANOVA and Tukey’s HSD tests to evaluate differences in client balances across groups, identifying significant imbalances that may impact fairness.
 
-### 4. **Experiment Evaluation**
-   - We evaluated the design of the experiment, focusing on randomization, potential biases, and the duration of the test.
-   - Based on our findings, we recommended further steps for improving future experiment designs and data collection practices.
+5. **Experiment Evaluation**:
+   - Assessed experiment structure, randomization, and potential biases.
+   - Highlighted the importance of addressing initial imbalances in client demographics and balances for future experiments.
 
-### 5. **Visualization**
-   - We created **interactive visualizations** using **Tableau** to present the key findings from the experiment and facilitate easier interpretation of the results.
-   - Additionally, we developed **Streamlit** web applications to provide real-time, interactive access to the data and analysis.
+6. **Visualization**:
+   - Created Tableau dashboardsto visualize results and support decision-making.
+   - Visualizations highlighted completion rates, step durations, and error rates across client groups.
 
 ## Deliverables
+- A comprehensive analysis report detailing findings, conclusions, and recommendations.
+- Tableau dashboards visualizing key insights.
+- Jupyter notebooks with code for data exploration, testing, and evaluation.
+- A clear and concise README summarizing the project.
+- A project presentation outlining main results and actionable insights.
 
-- A comprehensive **analysis report** that details the findings, conclusions, and recommendations based on our investigation.
-- A **Tableau dashboard** visualizing key insights from the A/B test results.
-- **Jupyter notebooks** containing the code used for data exploration, hypothesis testing, and evaluation.
-- A thorough **README** explaining the methodology, results, and conclusions of the project.
-- A **project presentation** summarizing the main findings and insights.
+## Key Insights and Recommendations
+- The Test group had a statistically significant higher completion rate than the Control group, indicating the new design's effectiveness.
+- Steps 2 and 3 require optimization to reduce client effort and improve process efficiency.
+- Addressing high error rates (29.95%) and imbalances in initial client demographics and balances is critical for future experiments.
+- Further segmentation of clients and analysis of drop-off points can help enhance the user experience.
 
 ## The Team
+- **[Constanza](https://github.com/constanzatabora)**
+- **[Bru](https://github.com/bruhu)**
 
-- **Constanza**
-- **Bru**
