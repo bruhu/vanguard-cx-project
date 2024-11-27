@@ -43,6 +43,6 @@ This project focuses on analyzing the results of an A/B test conducted by Vangua
 - Further segmentation of clients and analysis of drop-off points can help enhance the user experience.
 
 ## The Team
-- **[Constanza](https://github.com/constanzatabora)**
-- **[Bru](https://github.com/bruhu)**
+- [Constanza](https://github.com/constanzatabora)
+- [Bru](https://github.com/bruhu)
 
