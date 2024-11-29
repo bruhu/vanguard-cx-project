@@ -31,8 +31,9 @@ This project focuses on analyzing the results of an A/B test conducted by Vangua
 
 ## Deliverables
 - A comprehensive analysis report detailing findings, conclusions, and recommendations.
-- Tableau dashboards visualizing key insights.
+- [Tableau dashboard](https://public.tableau.com/app/profile/bru.brugera/viz/VanguardTableau/VanguardTableau) visualizing key insights.
 - Jupyter notebooks with code for data exploration, testing, and evaluation.
+- A Results document gathering all the insights and a detailed step-by-step with all the analysis performed.
 - A clear and concise README summarizing the project.
 - A project presentation outlining main results and actionable insights.
 
