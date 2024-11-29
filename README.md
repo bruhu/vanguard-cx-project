@@ -26,14 +26,14 @@ This project focuses on analyzing the results of an A/B test conducted by Vangua
    - Highlighted the importance of addressing initial imbalances in client demographics and balances for future experiments.
 
 6. **Visualization**:
-   - Created Tableau dashboardsto visualize results and support decision-making.
+   - Created Tableau dashboards to visualize results and support decision-making.
    - Visualizations highlighted completion rates, step durations, and error rates across client groups.
 
 ## Deliverables
 - A comprehensive analysis report detailing findings, conclusions, and recommendations.
 - [Tableau dashboard](https://public.tableau.com/app/profile/bru.brugera/viz/VanguardTableau/VanguardTableau) visualizing key insights.
 - Jupyter notebooks with code for data exploration, testing, and evaluation.
-- A Results document gathering all the insights and a detailed step-by-step with all the analysis performed.
+- A [Results document](https://github.com/bruhu/vanguard-cx-project/blob/main/notebooks/results.ipynb) gathering all the insights and a detailed step-by-step with all the analyses performed.
 - A clear and concise README summarizing the project.
 - A project presentation outlining main results and actionable insights.
 
