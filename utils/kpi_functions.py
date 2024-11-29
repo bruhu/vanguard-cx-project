@@ -40,9 +40,52 @@ def calculate_average_time_per_step(df):
     
     median_time = avg_time_per_step['avg_time_minutes'].median()
 
-    print(f"Median time spent across all steps: {median_time} minutes")
+    print(f'Median time spent across all steps: {median_time} minutes')
     
     return avg_time_per_step
+
+def average_times_to_df(df):
+    # Ensure the date_time column is in datetime format
+    df['date_time'] = pd.to_datetime(df['date_time'])
+    
+    # Sort the DataFrame
+    df = df.sort_values(by=['client_id', 'visit_id', 'step'])
+    
+    # Calculate the next step's time and time spent
+    df['next_step_time'] = df.groupby(['client_id', 'visit_id'])['date_time'].shift(-1)
+    df['time_spent'] = df['next_step_time'] - df['date_time']
+    
+    # Adjust for step 4 to account for the end of the session
+    step_4_rows = df[df['step'] == 4].copy()
+    step_4_rows['next_step_time'] = step_4_rows.groupby('visit_id')['date_time'].transform('max')
+    df.loc[df['step'] == 4, 'next_step_time'] = step_4_rows['next_step_time']
+    df['time_spent'] = df['next_step_time'] - df['date_time']
+    
+    # Drop rows with missing values in time_spent
+    df = df.dropna(subset=['time_spent'])
+    
+    # Calculate average time spent per step
+    avg_time_per_step = df.groupby(['step'])['time_spent'].mean().reset_index(name='avg_time_spent')
+    
+    # Convert time spent to minutes
+    avg_time_per_step['avg_time_minutes'] = avg_time_per_step['avg_time_spent'].dt.total_seconds() / 60
+    avg_time_per_step['avg_time_minutes'] = avg_time_per_step['avg_time_minutes'].round(2)
+    
+    # Add the computed average times back to the original DataFrame
+    df = df.merge(avg_time_per_step[['step', 'avg_time_minutes']], on='step', how='left')
+    
+    # Prepare final DataFrame with desired output format
+    result_df = avg_time_per_step[['step', 'avg_time_minutes']].rename(columns={'avg_time_minutes': 'Average Time (Minutes)'})
+    
+    # Calculate the median time in minutes
+    median_time = result_df['Average Time (Minutes)'].median()
+    print(f"Median time spent across all steps: {median_time:.2f} minutes")
+    
+    # Add a new column to the original DataFrame with the median time for reference
+    df['median_time_minutes'] = median_time
+    
+    # Return the modified DataFrame
+    return df, result_df
     
 
 def find_error_rate(df):
